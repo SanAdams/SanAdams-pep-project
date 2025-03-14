@@ -13,6 +13,14 @@ import Service.MessageService;
  * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
  */
 public class SocialMediaController {
+    AccountService accountService;
+    MessageService messageService;
+    
+    public SocialMediaController(){
+        this.accountService = new AccountService();
+        this.messageService = new MessageService();
+    }
+
     /**
      * In order for the test cases to work, you will need to write the endpoints in the startAPI() method, as the test
      * suite must receive a Javalin object from this method.
@@ -24,9 +32,9 @@ public class SocialMediaController {
         app.post("/login", this::loginHandler);
         app.post("/messages", this::createMessageHandler);
         app.get("/messages", this::getAllMessagesHandler);
-        app.get("/messages/{id}", this::getMessageGivenIdHandler);
-        app.delete("/messages/{id}", this::deleteMessageGivenIdHandler);
-        app.patch("/messages/{id}", this::updateMessageGivenIdHandler);
+        app.get("/messages/{message_id}", this::getMessageGivenIdHandler);
+        app.delete("/messages/{message_id}", this::deleteMessageGivenIdHandler);
+        app.patch("/messages/{message_id}", this::updateMessageGivenIdHandler);
         app.get("/accounts/{account_id}/messages", this::getAllMessagesFromUserHandler);
         app.start(8080);
         return app;
