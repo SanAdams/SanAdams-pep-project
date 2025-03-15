@@ -16,12 +16,11 @@ public class AccountDAO {
      */
     public Account registerAccount(Account account){
         try {
-            String sql = "insert into account values (?, ?, ?);";
+            String sql = "insert into account (username, password) values (?, ?);";
             PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
-            pstmt.setInt(1, account.getAccount_id());
-            pstmt.setString(2, account.getUsername());
-            pstmt.setString(3, account.getPassword());
+            pstmt.setString(1, account.getUsername());
+            pstmt.setString(2, account.getPassword());
             pstmt.executeUpdate();
 
             ResultSet pkrs = pstmt.getGeneratedKeys();
