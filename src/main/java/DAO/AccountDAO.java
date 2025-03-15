@@ -36,7 +36,7 @@ public class AccountDAO {
         return null;
     }
 
-    public Account getAccontByUsername(String username){
+    public Account getAccountByUsername(String username){
         try {
             String sql = "select * from account where username = ?;";
             PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -56,7 +56,7 @@ public class AccountDAO {
         return null;
     }
 
-    public Account getAccontById(int id){
+    public Account getAccountById(int id){
         try {
             String sql = "select * from account where account_id = ?;";
             PreparedStatement pstmt = connection.prepareStatement(sql);

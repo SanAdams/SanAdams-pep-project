@@ -20,11 +20,20 @@ public class AccountService {
     }
 
     private boolean meetsRegistrationRequirements(Account account){
-        return accountDAO.getAccontByUsername(account.getUsername()) == null &&
+        return accountDAO.getAccountByUsername(account.getUsername()) == null &&
                !account.getUsername().isEmpty() &&
                !account.getUsername().isBlank() &&
                account.getPassword().length() >= 4;
     }
 
-
+    public Account login(Account accountFromLoginRequest){
+        Account possibleAccount = accountDAO.getAccountByUsername(accountFromLoginRequest.getUsername());
+        
+        if (possibleAccount.getUsername().equals(accountFromLoginRequest.getUsername()) &&
+            possibleAccount.getPassword().equals(accountFromLoginRequest.getPassword()))
+            return possibleAccount;
+        else{
+            return null;
+        }
+    }
 }
