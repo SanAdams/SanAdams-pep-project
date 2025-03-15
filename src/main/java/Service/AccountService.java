@@ -9,6 +9,11 @@ public class AccountService {
     public AccountService(){
         this.accountDAO = new AccountDAO(); 
     }
+    
+    // Might delete later-- this constructor is only useful for mocking at the moment
+    public AccountService(AccountDAO accountDAO){
+	    this.accountDAO= accountDAO;
+    }
 
     public Account registerAccount(Account account){
         return meetsRegistrationRequirements(account) ? accountDAO.registerAccount(account) : null;
