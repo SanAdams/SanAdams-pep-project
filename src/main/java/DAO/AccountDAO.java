@@ -5,8 +5,11 @@ import Util.ConnectionUtil;
 import Model.Account;
 
 public class AccountDAO {
-    private Connection connection = ConnectionUtil.getConnection();
+    private Connection connection;
 
+    public AccountDAO(){
+        this.connection = ConnectionUtil.getConnection();
+    }
     /**
      * 
      * @return the account that's just been made
@@ -34,4 +37,21 @@ public class AccountDAO {
         return null;
     }
 
+    public Account getAccontByUsername(String username){
+        try {
+            String sql = "select * from account where username = ?;";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                Account account = new Account(rs.getString("username"), rs.getString("password"));
+                return account;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return null;
+    }
 }
