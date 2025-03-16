@@ -50,12 +50,14 @@ public class MessageDAO {
             pstmt.setInt(1, id);
             
             ResultSet rs = pstmt.executeQuery();
-            Message message = new Message((int) rs.getLong("message_id"),
+            if (rs.next()){
+                Message message = new Message((int) rs.getLong("message_id"),
                                             rs.getInt("posted_by"),
                                             rs.getString("message_text"),
                                             rs.getLong("time_posted_epoch"));
-
-            return message;
+                return message;
+            }
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
