@@ -30,10 +30,10 @@ public class MessageService {
         return messageDAO.getMessageGivenId(id);
     }
 
-    public Message deleteMessageGivenId(Message message){
-        Message messageAsStoredInDB = messageDAO.getMessageGivenId(message.getMessage_id());
+    public Message deleteMessageGivenId(int id){
+        Message messageAsStoredInDB = messageDAO.getMessageGivenId(id);
         if (messageAsStoredInDB != null){
-            messageDAO.deleteMessageGivenId(messageAsStoredInDB.getMessage_id());
+            messageDAO.deleteMessageGivenId(id);
         }
         return messageAsStoredInDB;
     }
