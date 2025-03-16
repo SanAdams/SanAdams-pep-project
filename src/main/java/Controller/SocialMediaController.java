@@ -14,11 +14,6 @@ import Model.Message;
 import Service.AccountService;
 import Service.MessageService;
 
-/**
- * TODO: You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
- * found in readme.md as well as the test cases. You should
- * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
- */
 public class SocialMediaController {
     AccountService accountService;
     MessageService messageService;
@@ -47,8 +42,7 @@ public class SocialMediaController {
     }
 
     /**
-     * This is an example handler for an example endpoint.
-     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     * 
      */
     private void registerHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -141,7 +135,6 @@ public class SocialMediaController {
 
     /**
      * 
-     * @param ctx
      */
     @SuppressWarnings("unchecked")
     private void updateMessageGivenIdHandler(Context ctx) throws JsonProcessingException{
