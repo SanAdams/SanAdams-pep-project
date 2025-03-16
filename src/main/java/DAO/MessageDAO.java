@@ -43,11 +43,30 @@ public class MessageDAO {
         return null;
     }
 
-    public void deleteMessageById(Message message){
+    public Message getMessageGivenId(int id){
+        try {
+            String sql = "select * from message where message_id = ?;";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            
+            ResultSet rs = pstmt.executeQuery();
+            Message message = new Message((int) rs.getLong("message_id"),
+                                            rs.getInt("posted_by"),
+                                            rs.getString("message_text"),
+                                            rs.getLong("time_posted_epoch"));
+
+            return message;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public void deleteMessageGivenId(int id){
         try {
             String sql = "delete from message where message_id = ?;";
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1, message.getMessage_id());
+            pstmt.setInt(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
