@@ -29,11 +29,11 @@ public class AccountService {
     public Account login(Account accountFromLoginRequest){
         Account possibleAccount = accountDAO.getAccountByUsername(accountFromLoginRequest.getUsername());
         
-        if (possibleAccount.getUsername().equals(accountFromLoginRequest.getUsername()) &&
-            possibleAccount.getPassword().equals(accountFromLoginRequest.getPassword()))
-            return possibleAccount;
-        else{
-            return null;
+        if (possibleAccount != null){
+            if (possibleAccount.getPassword().equals(accountFromLoginRequest.getPassword()))
+                return possibleAccount;
         }
+        return null;
     }
+    
 }
