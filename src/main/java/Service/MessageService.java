@@ -21,9 +21,20 @@ public class MessageService {
     }
 
     public boolean meetsMessageRequirements(Message message){
-
         return !message.getMessage_text().isBlank() &&
                 message.getMessage_text().length() < MAX_MESSAGE_LENGTH &&
                 accountDAO.getAccountById(message.getPosted_by()) != null;
+    }
+
+    public Message getMessageGivenId(int id){
+        return messageDAO.getMessageGivenId(id);
+    }
+
+    public Message deleteMessageGivenId(Message message){
+        Message messageAsStoredInDB = messageDAO.getMessageGivenId(message.getMessage_id());
+        if (messageAsStoredInDB != null){
+            messageDAO.deleteMessageGivenId(messageAsStoredInDB.getMessage_id());
+        }
+        return messageAsStoredInDB;
     }
 }
