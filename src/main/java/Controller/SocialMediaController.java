@@ -3,6 +3,8 @@ package Controller;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
+import java.util.List;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -91,8 +93,13 @@ public class SocialMediaController {
     /**
      * 
      */
-    private void getAllMessagesHandler(Context ctx){
+    private void getAllMessagesHandler(Context ctx) throws JsonProcessingException{
+        List<Message> messages = messageService.getAllMessages();
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonSerializedMessages = objectMapper.writeValueAsString(messages);
+
+        ctx.result(jsonSerializedMessages);
     }
 
     /**
