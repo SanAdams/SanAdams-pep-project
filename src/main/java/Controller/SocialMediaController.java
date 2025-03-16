@@ -166,7 +166,14 @@ public class SocialMediaController {
     /**
      * 
      */
-    private void getAllMessagesFromUserHandler(Context ctx){
+    private void getAllMessagesFromUserHandler(Context ctx) throws JsonProcessingException{
+        String messageIdStr = ctx.pathParam("account_id");
+        int accountId = Integer.parseInt(messageIdStr);
+        List<Message> messages = messageService.getAllMessagesFromUser(accountId);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonSerializedMessages = objectMapper.writeValueAsString(messages);
+
+        ctx.result(jsonSerializedMessages);
     }
 }
