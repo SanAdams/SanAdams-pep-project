@@ -4,6 +4,7 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -142,8 +143,24 @@ public class SocialMediaController {
      * 
      * @param ctx
      */
-    private void updateMessageGivenIdHandler(Context ctx){
+    @SuppressWarnings("unchecked")
+    private void updateMessageGivenIdHandler(Context ctx) throws JsonProcessingException{
+        String messageIdStr = ctx.pathParam("message_id");
+        int messageId = Integer.parseInt(messageIdStr);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        
+        //Convert the request into a map and extract the message_text field
+        Map<String, String> requestMap = objectMapper.readValue(ctx.body(), Map.class);
+        String updatedMessageString = requestMap.get("message_text");
+        
+        Message updatedMessage = messageService.updateMessageGivenId(messageId, updatedMessageString);
+        if (updatedMessage != null){
+            ctx.json(objectMapper.writeValueAsString(updatedMessage));
+        }
+        else{
+            ctx.status(400);
+        }
     }
 
     /**

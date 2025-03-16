@@ -42,4 +42,17 @@ public class MessageService {
         }
         return messageAsStoredInDB;
     }
+
+    public Message updateMessageGivenId(int id, String updatedMessageString){
+        if (messageDAO.getMessageGivenId(id) != null && meetsUpdateRequirements(updatedMessageString)){
+            messageDAO.updateMessageGivenId(id, updatedMessageString);
+            return messageDAO.getMessageGivenId(id);
+        }
+        return null;
+    }
+
+    public boolean meetsUpdateRequirements(String updatedMessageString){
+        return !updatedMessageString.isBlank() &&
+                updatedMessageString.length() <= MAX_MESSAGE_LENGTH;
+    }
 }

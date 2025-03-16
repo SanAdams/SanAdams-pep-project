@@ -99,4 +99,18 @@ public class MessageDAO {
         
         return messages;
     }
+
+    public void updateMessageGivenId(int id, String updatedMessageString){
+        try {
+            String sql = "update message " +
+                         "set message_text = ? " +
+                         "where message_id = ?;";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, updatedMessageString);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
