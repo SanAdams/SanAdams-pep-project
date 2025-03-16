@@ -82,7 +82,7 @@ public class MessageDAO {
         List<Message> messages = new ArrayList<Message>();
         
         try {
-            String sql = "select * from messages;";
+            String sql = "select * from message;";
             Statement pstmt = connection.createStatement();
             
             ResultSet rs = pstmt.executeQuery(sql);
