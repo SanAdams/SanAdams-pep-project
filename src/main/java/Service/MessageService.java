@@ -1,5 +1,7 @@
 package Service;
 
+import java.util.List;
+
 import DAO.MessageDAO;
 import DAO.AccountDAO;
 import Model.Message;
@@ -20,6 +22,9 @@ public class MessageService {
         return meetsMessageRequirements(message) ? messageDAO.insertMessage(message) : null;
     }
 
+    public List<Message> getAllMessages(){
+        return messageDAO.getAllMessages();
+    }
     public boolean meetsMessageRequirements(Message message){
         return !message.getMessage_text().isBlank() &&
                 message.getMessage_text().length() < MAX_MESSAGE_LENGTH &&
