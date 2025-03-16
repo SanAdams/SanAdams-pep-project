@@ -1,5 +1,6 @@
 package Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import DAO.MessageDAO;
@@ -54,5 +55,9 @@ public class MessageService {
     public boolean meetsUpdateRequirements(String updatedMessageString){
         return !updatedMessageString.isBlank() &&
                 updatedMessageString.length() <= MAX_MESSAGE_LENGTH;
+    }
+
+    public List<Message> getAllMessagesFromUser(int account_id){
+        return messageDAO.getAllMessagesFromUser(account_id);
     }
 }
