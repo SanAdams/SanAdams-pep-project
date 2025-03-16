@@ -6,13 +6,10 @@ import DAO.AccountDAO;
 public class AccountService {
     private AccountDAO accountDAO;
 
+    private final int MIN_PASSWORD_LENGTH = 4;
+
     public AccountService(){
         this.accountDAO = new AccountDAO(); 
-    }
-    
-    // Might delete later-- this constructor is only useful for mocking at the moment
-    public AccountService(AccountDAO accountDAO){
-	    this.accountDAO= accountDAO;
     }
 
     public Account registerAccount(Account account){
@@ -23,7 +20,7 @@ public class AccountService {
         return accountDAO.getAccountByUsername(account.getUsername()) == null &&
                !account.getUsername().isEmpty() &&
                !account.getUsername().isBlank() &&
-               account.getPassword().length() >= 4;
+               account.getPassword().length() >= MIN_PASSWORD_LENGTH;
     }
 
     public Account login(Account accountFromLoginRequest){
