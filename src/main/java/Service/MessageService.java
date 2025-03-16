@@ -9,6 +9,8 @@ public class MessageService {
     private MessageDAO messageDAO;
     private AccountDAO accountDAO;
 
+    private final int MAX_MESSAGE_LENGTH = 255;
+
     public MessageService(){
         this.messageDAO = new MessageDAO(); 
         this.accountDAO = new AccountDAO();
@@ -19,8 +21,9 @@ public class MessageService {
     }
 
     public boolean meetsMessageRequirements(Message message){
+
         return !message.getMessage_text().isBlank() &&
-                message.getMessage_text().length() < 255 &&
+                message.getMessage_text().length() < MAX_MESSAGE_LENGTH &&
                 accountDAO.getAccountById(message.getPosted_by()) != null;
     }
 }
