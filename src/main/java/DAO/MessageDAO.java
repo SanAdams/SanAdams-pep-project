@@ -10,7 +10,7 @@ import org.h2.command.Prepared;
 import org.h2.command.ddl.PrepareProcedure;
 
 import Util.ConnectionUtil;
-import Model.Account;
+
 import Model.Message;
 
 public class MessageDAO {
@@ -25,7 +25,7 @@ public class MessageDAO {
             String sql = "insert into message(posted_by, message_text, time_posted_epoch) values(?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            pstmt.setInt(1, message.getMessage_id());
+            pstmt.setInt(1, message.getPosted_by());
             pstmt.setString(2, message.getMessage_text());
             pstmt.setLong(3, message.getTime_posted_epoch());
             pstmt.executeUpdate();
