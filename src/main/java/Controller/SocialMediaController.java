@@ -77,8 +77,15 @@ public class SocialMediaController {
     /**
      * 
      */
-    private void createMessageHandler(Context ctx){
-
+    private void createMessageHandler(Context ctx) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        Message newMessage = messageService.createMessage(objectMapper.readValue(ctx.body(), Message.class));
+        if (newMessage != null){
+            ctx.json(objectMapper.writeValueAsString(newMessage));
+        }
+        else{
+            ctx.status(400);
+        }
     }
 
     /**
