@@ -105,8 +105,19 @@ public class SocialMediaController {
     /**
      * 
      */
-    private void getMessageGivenIdHandler(Context ctx){
-
+    private void getMessageGivenIdHandler(Context ctx) throws JsonProcessingException{
+        String messageIdStr = ctx.pathParam("message_id");
+        int messageId = Integer.parseInt(messageIdStr);
+        
+        ObjectMapper objectMapper = new ObjectMapper();
+        Message message = messageService.getMessageGivenId(messageId);
+        
+        if (message != null){
+            ctx.json(objectMapper.writeValueAsString(message));
+        }
+        else{
+            ctx.status(200);
+        }
     }
 
     /**
